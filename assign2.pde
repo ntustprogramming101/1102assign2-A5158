@@ -130,23 +130,15 @@ void draw() {
     if(keyPressed){
       image(groundhog,1000,1000);
         if(right){
-          image(groundhogR,groundhogX,groundhogY,80,80);
-          groundhogX+=80;
-          if(groundhogX>=width-80)groundhogX=width-80;
-         }
+          image(groundhogR,groundhogX,groundhogY,80,80);        
       }
       
       else if(left){
-          image(groundhogR,groundhogX,groundhogY,80,80);
-          groundhogX-=80; 
-          if(groundhogX<=0)groundhogX=0;
-        }
+          image(groundhogR,groundhogX,groundhogY,80,80);        
       }
       
         else if(down){
           image(groundhogD,groundhogX,groundhogY,80,80);
-          groundhogY+=80;
-          if(groundhogY>=height-80)groundhogY=height-80;
         }
           
     }else{image(groundhog,groundhogX,groundhogY,80,80);}
@@ -279,6 +271,18 @@ void keyPressed(){
       case LEFT: left=true;break;
       case UP: up=true;break;
       }
+      if (right){
+      groundhogX+=80;
+      }
+      if(groundhogX>=width-80)groundhogX=width-80;
+      if (left){
+      groundhogX-=80;
+      }
+      if(groundhogX<=0)groundhogX=0;
+      if (down){
+      groundhogY+=80;
+      }
+      if(groundhogY>=height-80)groundhogX=height-80;
   }
 
   }
