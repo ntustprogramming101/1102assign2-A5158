@@ -44,10 +44,6 @@ PImage soldier;
 PImage soil;
 PImage over;
 
-import java.util.Timer;
-import java.io.*;
-import java.lang.Thread;
-import java.util.concurrent.TimeUnit;
 
 //laser
   int laserX;
@@ -133,26 +129,26 @@ void draw() {
     groundhog=loadImage("img/groundhog.png");    
     if(keyPressed){
       image(groundhog,1000,1000);
-        if(right){ 
-        for(t=0; t<=15;t++){
+        if(right){
           image(groundhogR,groundhogX,groundhogY,80,80);
-          groundhogX+=5.3;        
+          groundhogX+=80;
+          if(groundhogX>=width-80)groundhogX=width-80;
          }
-    }
-    if(groundhogX>=width-80)groundhogX=width-80;
-    if(left){ 
-      for(t=0; t<=15; t++){
-        image(groundhogR,groundhogX,groundhogY,80,80);
-        groundhogX-=80/15;        
       }
-    }
-    if(groundhogX<=0)groundhogX=0;
-      if(down){
-        image(groundhogD,groundhogX,groundhogY,80,80);
+      
+      else if(left){
+          image(groundhogR,groundhogX,groundhogY,80,80);
+          groundhogX-=80; 
+          if(groundhogX<=0)groundhogX=0;
+        }
+      }
+      
+        else if(down){
+          image(groundhogD,groundhogX,groundhogY,80,80);
           groundhogY+=80;
-        
-      }
-      if(groundhogY>=height-80)groundhogY=height-80;  
+          if(groundhogY>=height-80)groundhogY=height-80;
+        }
+          
     }else{image(groundhog,groundhogX,groundhogY,80,80);}
 
     switch(life){                  
