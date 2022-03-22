@@ -133,26 +133,17 @@ void draw() {
     groundhog=loadImage("img/groundhog.png");    
     if(keyPressed){
       image(groundhog,1000,1000);
-        if(right){ for(t=0; t<=15;t++){
+        if(right){ 
+        for(t=0; t<=15;t++){
           image(groundhogR,groundhogX,groundhogY,80,80);
-          groundhogX+=5.3;
-          try {Thread.sleep(1000/60);
-            }
-            catch(){
-              System.out.println("got interrupted!");
-            }
+          groundhogX+=5.3;        
          }
     }
     if(groundhogX>=width-80)groundhogX=width-80;
     if(left){ 
       for(t=0; t<=15; t++){
         image(groundhogR,groundhogX,groundhogY,80,80);
-        groundhogX-=80/15;
-        try {Thread.sleep(1000/60);
-            }
-            catch(){
-              System.out.println("got interrupted!");
-            }
+        groundhogX-=80/15;        
       }
     }
     if(groundhogX<=0)groundhogX=0;
