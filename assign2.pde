@@ -138,7 +138,7 @@ void draw() {
           groundhogX+=5.3;
           try {Thread.sleep(1000/60);
             }
-            catch(InterruptedException e){
+            catch(){
               System.out.println("got interrupted!");
             }
          }
@@ -150,16 +150,16 @@ void draw() {
         groundhogX-=80/15;
         try {Thread.sleep(1000/60);
             }
-            catch(InterruptedException e){
+            catch(){
               System.out.println("got interrupted!");
             }
       }
     }
     if(groundhogX<=0)groundhogX=0;
       if(down){
-        for(t=0; t<25;t++){
-          groundhogY+=3.2;
-        }
+        image(groundhogD,groundhogX,groundhogY,80,80);
+          groundhogY+=80;
+        
       }
       if(groundhogY>=height-80)groundhogY=height-80;  
     }else{image(groundhog,groundhogX,groundhogY,80,80);}
