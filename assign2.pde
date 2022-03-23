@@ -5,10 +5,10 @@ int robotY;
 int vegX;
 int vegY;
 int b;
-int t;
+
 float groundhogX=320;
 float groundhogY=80;
-
+float t=0;
 
 final int GAME_START=0;
 final int GAME_RUN=1;
@@ -17,10 +17,15 @@ final int LIFE3=3;
 final int LIFE1=4;
 final int VEG1=5;
 final int VEG0=6;
-final int GAME_RESTART=5;
+final int GAME_RESTART=7;
+final int R=8;
+final int L=9;
+final int D=10;
+final int I=11;
 int gameState=GAME_START;
 int life=LIFE2;
 int VEG=VEG1;
+int move=I;
 
 boolean right=false;
 boolean down=false;
@@ -126,23 +131,86 @@ void draw() {
     soil=loadImage("img/soil.png");
     image(soil,0,160,640,320);
     //groundhog move
-    groundhog=loadImage("img/groundhogIdle.png");    
-    if(keyPressed){
-      image(groundhog,1000,1000);
-        if(right){
-          image(groundhogR,groundhogX,groundhogY,80,80);        
-      }
-      
-      else if(left){
-          image(groundhogL,groundhogX,groundhogY,80,80);        
-      }
-      
-        else if(down){
-          image(groundhogD,groundhogX,groundhogY,80,80);
-        }
-          
-    }else{image(groundhog,groundhogX,groundhogY,80,80);}
+    groundhog=loadImage("img/groundhog.png");
+    if(move==I){
+      image(groundhog,groundhogX,groundhogY,80,80);
+    }else{image(groundhog,1000,1000);}
 
+    if(t==15){
+      image(groundhog,groundhogX,groundhogY,80,80);
+      move=I;
+      t=0;
+    }
+    switch (move){
+      case R:
+      if(groundhogX>=width-80){groundhogX+=0;
+      }else{groundhogX +=80.0/15.0;}
+      t++; 
+      
+      image(groundhogR,groundhogX,groundhogY,80,80);
+      if(groundhogY+80>soldierY &&  groundhogY<soldierY+80){
+             if(groundhogX-soldierX<80 && groundhogX-soldierX>0){
+                t=0;
+                move=I;
+                break;
+             }
+             if(groundhogX-soldierX>-80 && groundhogX-soldierX<0){   
+                t=0;
+                move=I;
+                break;
+             } 
+       }
+      break;
+      case L:
+      if(groundhogX<=0){groundhogX-=0;
+      }else{groundhogX -=80.0/15.0;}
+      t++;
+      image(groundhogL,groundhogX,groundhogY,80,80);
+            if(groundhogY+80>soldierY &&  groundhogY<soldierY+80){
+             if(groundhogX-soldierX<80 && groundhogX-soldierX>0){
+                t=0;
+                move=I;
+                break;
+             }
+             if(groundhogX-soldierX>-80 && groundhogX-soldierX<0){
+                t=0;
+                move=I;
+                break;
+             } 
+       }
+      break;
+      case D:
+      if(groundhogY>=height-80){groundhogY+=0;
+      }else{groundhogY +=80.0/15.0;}
+      t++;
+      image(groundhogD,groundhogX,groundhogY,80,80);
+            if(groundhogY+80>soldierY &&  groundhogY<soldierY+80){
+             if(groundhogX-soldierX<80 && groundhogX-soldierX>0){
+                t=0;
+                move=I;
+                break;
+             }
+             if(groundhogX-soldierX>-80 && groundhogX-soldierX<0){
+                t=0;
+                move=I;
+                break;
+             } 
+       }
+      break;
+      case I:
+      image(groundhog,groundhogX,groundhogY,80,80);
+      break;
+    }
+    switch(VEG){
+      case VEG1:
+        image(veg,vegX,vegY);
+      break;
+      case VEG0:
+        vegX=1000;vegY=1000;
+        image(veg,vegX,vegY);
+      break;
+         }
+    
     switch(life){                  
        case LIFE2:
           //heart
@@ -151,6 +219,11 @@ void draw() {
           image(soldier,soldierX+=3,soldierY,80,80);
           if (soldierX>=640){soldierX=-80;}
           image(veg,vegX,vegY,80,80);
+          if(groundhogY+40>vegY && groundhogY+40<vegY+80){
+             if(groundhogX+40>vegX && groundhogX+40<vegX+80){vegX=1000;vegY=1000;
+                image(veg,vegX,vegY);
+                life=LIFE3;}else{VEG=VEG1;}
+           }
           //lose heart
           if(groundhogY+80>soldierY &&  groundhogY<soldierY+80){
              if(groundhogX-soldierX<80 && groundhogX-soldierX>0){
@@ -161,18 +234,7 @@ void draw() {
                 groundhogX=320;
                 groundhogY=80;
                 life=LIFE1;} }
-                switch(VEG){
-                  case VEG1:
-                  image(veg,vegX,vegY);
-                if(groundhogX==vegX && groundhogY==vegY){vegX=1000;vegY=1000;
-                image(veg,vegX,vegY);
-                life=LIFE3;}else{VEG=VEG1;}
-                break;
-                  case VEG0:
-                  vegX=1000;vegY=1000;
-                  image(veg,vegX,vegY);
-                  break;
-                }
+                
       break;
       case LIFE3:
       //heart
@@ -215,18 +277,13 @@ void draw() {
             image(soldier,soldierX+=3,soldierY,80,80);
             if (soldierX>=640){soldierX=-80;} 
           //veg
-          switch(VEG){
-                  case VEG1:
-                  image(veg,vegX,vegY);
-                if(groundhogX==vegX && groundhogY==vegY){vegX=1000;vegY=1000;
-                image(veg,vegX,vegY);
-                life=LIFE2;}else{VEG=VEG1;}
-                break;
-                  case VEG0:
+           if(groundhogY+40>vegY && groundhogY+40<vegY+80){
+              if(groundhogX+40>vegX && groundhogX+40<vegX+80){
                   vegX=1000;vegY=1000;
                   image(veg,vegX,vegY);
-                  break;
-                }
+                  life=LIFE2;
+                  VEG=VEG0;
+            }else{VEG=VEG1;}}
           if(groundhogX==vegX && groundhogY==vegY){VEG=VEG0;}
             //lose heart
             if(groundhogY+80>soldierY &&  groundhogY<soldierY+80){
@@ -271,20 +328,18 @@ void keyPressed(){
       case LEFT: left=true;break;
       case UP: up=true;break;
       }
-      if (right){
-      groundhogX+=80;
-      }
-      if(groundhogX>=width-80)groundhogX=width-80;
-      if (left){
-      groundhogX-=80;
-      }
-      if(groundhogX<=0)groundhogX=0;
-      if (down){
-      groundhogY+=80;
-      }
-      if(groundhogY>=height-80)groundhogY=height-80;
   }
-
+    if(keyPressed){
+      image(groundhog,1000,1000);
+      if(t==0){
+        if(right)move=R;
+        else if(left)move=L;
+        else if(down)move=D;
+      }
+    }//else{image(groundhog,groundhogX,groundhogY,80,80);}
+    if(groundhogX>=width-80)groundhogX=width-80;
+    if(groundhogX<=0)groundhogX=0;
+    if(groundhogY>=height-80)groundhogY=height-80;
   }
 }
 
