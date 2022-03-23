@@ -131,7 +131,7 @@ void draw() {
     soil=loadImage("img/soil.png");
     image(soil,0,160,640,320);
     //groundhog move
-    groundhog=loadImage("img/groundhog.png");
+    groundhog=loadImage("img/groundhogIdle.png");
     if(move==I){
       image(groundhog,groundhogX,groundhogY,80,80);
     }else{image(groundhog,1000,1000);}
