@@ -282,7 +282,7 @@ void keyPressed(){
       if (down){
       groundhogY+=80;
       }
-      if(groundhogY>=height-80)groundhogX=height-80;
+      if(groundhogY>=height-80)groundhogY=height-80;
   }
 
   }
