@@ -160,7 +160,8 @@ void draw() {
                 if(groundhogX-soldierX>-80 && groundhogX-soldierX<0){           
                 groundhogX=320;
                 groundhogY=80;
-                life=LIFE1;} }
+                life=LIFE1;} 
+                }
                 switch(VEG){
                   case VEG1:
                   image(veg,vegX,vegY);
