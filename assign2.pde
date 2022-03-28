@@ -334,14 +334,13 @@ void keyPressed(){
       case UP: up=true;break;
       }
   
-    if(keyPressed){
-      image(groundhog,1000,1000);
+   
       if(t==0){
         if(right)move=R;
         else if(left)move=L;
         else if(down)move=D;
       }
-    }//else{image(groundhog,groundhogX,groundhogY,80,80);}
+    //else{image(groundhog,groundhogX,groundhogY,80,80);}
     if(groundhogX>=width-80)groundhogX=width-80;
     if(groundhogX<=0)groundhogX=0;
     if(groundhogY>=height-80)groundhogY=height-80;
