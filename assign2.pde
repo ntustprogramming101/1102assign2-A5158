@@ -125,7 +125,7 @@ void draw() {
     image(sky,0,0,640,480);
     //grass
     noStroke(); 
-    fill(124,402,25);
+    fill(124,204,25);
     rect(0,145,640,15);
     //sun
     noStroke(); 
@@ -147,6 +147,9 @@ void draw() {
       move=I;
       t=0;
     }
+        if(groundhogX>=width-80)groundhogX=width-80;
+    if(groundhogX<=0)groundhogX=0;
+    if(groundhogY>=height-80)groundhogY=height-80;
     switch (move){
       case R:
       if(groundhogX>=width-80){groundhogX+=0;
@@ -333,17 +336,7 @@ void keyPressed(){
       case LEFT: left=true;break;
       case UP: up=true;break;
       }
-  
-   
-      if(t==0){
-        if(right)move=R;
-        else if(left)move=L;
-        else if(down)move=D;
-      }
-    //else{image(groundhog,groundhogX,groundhogY,80,80);}
-    if(groundhogX>=width-80)groundhogX=width-80;
-    if(groundhogX<=0)groundhogX=0;
-    if(groundhogY>=height-80)groundhogY=height-80;
+
   }
 }
 
